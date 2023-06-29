@@ -10,8 +10,8 @@ class Channel:
 
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
-        self.channel_id = channel_id
-        dict_to_print = youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
+        self.__channel_id__ = channel_id
+        dict_to_print = youtube.channels().list(id=self.__channel_id__, part='snippet,statistics').execute()
         self.title = dict_to_print['items'][0]['snippet']['title']
         self.description = dict_to_print['items'][0]['snippet']['description']
         self.subscriber_count = dict_to_print['items'][0]['statistics']['subscriberCount']
@@ -23,10 +23,14 @@ class Channel:
     def get_service(cls):
         return build('youtube', 'v3', developerKey=api_key)
 
+    @property
+    def channel_id(self):
+        return self.channel_id
+
     def to_json(self, filename):
         with open (filename, 'w') as file:
             file.write(json.dumps({
-                "channel_id": self.channel_id,
+                "channel_id": self.__channel_id__,
                 "title": self.title,
                 "description": self.description,
                 "subscriber_count": self.subscriber_count,
