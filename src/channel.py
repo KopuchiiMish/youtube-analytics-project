@@ -19,6 +19,16 @@ class Channel:
         self.view_count = dict_to_print['items'][0]['statistics']['viewCount']
         self.url = f'https://youtu.be/{dict_to_print["etag"]}'
 
+    def __str__(self):
+        return f'{self.title} - {self.url}'
+
+    def __add__(self, other):
+        return self.subscriber_count + other.subscriber_count
+
+    def __sub__(self, other):
+        return self.subscriber_count - other.subscriber_count
+        return other.subscriber_count - self.subscriber_count
+
     @classmethod
     def get_service(cls):
         return build('youtube', 'v3', developerKey=api_key)
@@ -38,3 +48,6 @@ class Channel:
                 "view_count": self.view_count
             }, indent=2, ensure_ascii=False))
 
+if __name__ == '__main__':
+    channel1 = Channel('UC-OVMPlMA3-YCIeg4z5z23A')
+    channel2 = Channel('UCwHL6WHUarjGfUM_586me8w')
