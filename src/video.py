@@ -25,10 +25,6 @@ class PLVideo(Video):
         super().__init__(video_id)
         self.pl_id = pl_id
         dict_to_print = youtube.videos().list(id=self.__video_id__, part='snippet,statistics').execute()
-        self.title = dict_to_print['items'][0]['snippet']['title']
-        self.url = f'https://youtu.be/{dict_to_print["etag"]}'
-        self.view_count = dict_to_print['items'][0]['statistics']['viewCount']
-        self.likes_count = dict_to_print['items'][0]['statistics']['likeCount']
         self.pl_id = dict_to_print['items'][0]['id']
 
 
