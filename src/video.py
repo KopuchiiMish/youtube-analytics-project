@@ -24,7 +24,5 @@ class PLVideo(Video):
     def __init__(self, video_id, pl_id):
         super().__init__(video_id)
         self.pl_id = pl_id
-        dict_to_print = youtube.videos().list(id=self.__video_id__, part='snippet,statistics').execute()
-        self.pl_id = dict_to_print['items'][0]['id']
 
 
